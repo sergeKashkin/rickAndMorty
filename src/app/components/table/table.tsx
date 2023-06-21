@@ -7,10 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Skeleton } from "@mui/material";
-import Box from "@mui/material/Box/Box";
 import { getCell } from "./helper";
 
 export interface row {
+  id: number;
   value: string;
   isImage: boolean;
 }
@@ -22,12 +22,13 @@ const TableComponent = (props: {
   height: number;
   imageSize: { width: number; height: number };
   isLoading: boolean;
+  onRowClick: (row: row) => any
 }) => {
 
   return props.isLoading ? (
     <div style={{ width: `${props.width}vw`, height: `${props.height}vh` }}>
       {[...Array(10)].map((_) => (
-        <Skeleton variant="rectangular" sx={{ my: 5, mx: 1 }} />
+        <Skeleton key={Math.random() * 1000000} variant="rectangular" sx={{ my: 5, mx: 1 }} />
       ))}
     </div>
   ) : (
@@ -56,7 +57,7 @@ const TableComponent = (props: {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               {tableRow.map((row, rowIndex) =>
-                getCell(row, rowIndex, props.imageSize)
+                getCell(row, rowIndex, props.imageSize, (row: row) => props.onRowClick(row))
               )}
             </TableRow>
           ))}

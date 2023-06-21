@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 import Table, { row } from "./components/table/table";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination/Pagination";
 import { CharacterColumns, serverUrl } from "./constants";
 import fetcher from "./helpers/swr";
@@ -32,6 +32,8 @@ export default function Home() {
     setPage(index);
   };
 
+  const onRowClick = (row: row) => console.log(row);
+
   return (
     <main className="flex flex-col h-full items-center justify-between p-6">
       <div className="flex place-items-center">
@@ -45,6 +47,7 @@ export default function Home() {
             columns={CharacterColumns}
             rows={rows}
             isLoading={isLoading}
+            onRowClick={(row) => onRowClick(row)}
           />
         )}
       </div>
