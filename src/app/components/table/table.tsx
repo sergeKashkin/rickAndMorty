@@ -6,14 +6,22 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Image from 'next/image';
 
-const TableComponent = (props: {rows: string[][], columns: string[], width: string}) => {
-    return <TableContainer component={Paper}>
-    <Table sx={{ minWidth: props.width }} aria-label="simple table">
+export interface row {
+    value: string;
+    isImage: boolean;
+}
+
+const TableComponent = (props: {rows: row[][], columns: string[], width: string, height: string, imageSize: { width: number, height: number }}) => {
+    return <TableContainer sx={{ width: props.width, maxHeight: props.height }} component={Paper}>
+    <Table stickyHeader  aria-label="simple table">
       <TableHead>
         <TableRow>
             {props.columns.map((column, index) => (
-                !index ? <TableCell>{column}</TableCell> : <TableCell align="right">{column}</TableCell> 
+                !index ? 
+                    <TableCell key={column+index}>{column}</TableCell> : 
+                        <TableCell key={column+index} align="right">{column}</TableCell> 
             ))}
         </TableRow>
       </TableHead>
@@ -24,10 +32,10 @@ const TableComponent = (props: {rows: string[][], columns: string[], width: stri
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             {tableRow.map((row, rowIndex) => (
-                !rowIndex ? <TableCell key={row} component="th" scope="row">
-                    {row}
+                !rowIndex ? <TableCell key={row.value+rowIndex} component="th" scope="row">
+                    { row.isImage ? <Image width={props.imageSize.width} height={props.imageSize.height} src={row.value} alt="image"></Image> : row.value }
                 </TableCell>
-                : <TableCell key={row} align="right">{row}</TableCell>
+                : <TableCell key={row.value+rowIndex} align="right">{row.value}</TableCell>
             ))}
           </TableRow>
         ))}
