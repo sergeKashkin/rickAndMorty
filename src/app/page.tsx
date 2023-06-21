@@ -24,9 +24,7 @@ export default function Home() {
       setPages(data?.info.pages);
     }
     if (data?.results) {
-      setRows(
-        data.results.map(character => Parse.characterToRow(character))
-      );
+      setRows(data.results.map((character) => Parse.characterToRow(character)));
     }
   }, [data]);
 
@@ -37,15 +35,16 @@ export default function Home() {
   return (
     <main className="flex flex-col h-full items-center justify-between p-6">
       <div className="flex place-items-center">
-        {isLoading ? (
-          "Is Loading"
+        { error ? (
+          "Error"
         ) : (
           <Table
-            width={"90vw"}
-            height={"80vh"}
-            imageSize={{width: 50, height: 50}}
+            width={90}
+            height={80}
+            imageSize={{ width: 50, height: 50 }}
             columns={CharacterColumns}
             rows={rows}
+            isLoading={isLoading}
           />
         )}
       </div>
