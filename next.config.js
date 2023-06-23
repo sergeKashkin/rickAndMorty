@@ -2,6 +2,9 @@
 const nextConfig = {
     images: {
         domains: ["rickandmortyapi.com"]
+    },
+    experimental: {
+        esmExternals: "loose"
     }
 }
 

@@ -9,7 +9,7 @@ export const getCell = (row: row, index: number, imageSize: { width: number; hei
           key={row.value + index}
           component="th"
           scope="row"
-          onClick={() => onClick(row.id)}
+          onClick={() => onClick(row)}
           sx={{
             position: "sticky",
             left: 0,
@@ -21,12 +21,14 @@ export const getCell = (row: row, index: number, imageSize: { width: number; hei
               key={row.value + index}
               width={imageSize.width}
               height={imageSize.height}
+              borderRadius={"50%"}
             >
               <Image
                 src={row.value}
                 alt="image"
                 width={imageSize.width}
                 height={imageSize.height}
+                style={{borderRadius: "50%"}}
               ></Image>
             </Box>
           ) : (
@@ -41,12 +43,14 @@ export const getCell = (row: row, index: number, imageSize: { width: number; hei
               key={row.value + index}
               width={imageSize.width}
               height={imageSize.height}
+              borderRadius={"50%"}
             >
               <Image
                 src={row.value}
                 alt="image"
                 width={imageSize.width}
                 height={imageSize.height}
+                style={{borderRadius: "50%"}}
               ></Image>
             </Box>
           ) : (

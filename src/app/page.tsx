@@ -4,7 +4,12 @@ import useSWR from "swr";
 import Table, { row, tableFilter } from "./components/table/table";
 import { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination/Pagination";
-import { CharacterColumns, CharacterFilters, Strings, serverUrl } from "./constants";
+import {
+  CharacterColumns,
+  CharacterFilters,
+  Strings,
+  serverUrl,
+} from "./constants";
 import fetcher from "./helpers/swr";
 import { baseResponse, character, episode } from "./entities";
 import { Parse } from "./helpers/parse";
@@ -12,8 +17,10 @@ import ModalComponent, { ModalData } from "./components/modal/modal";
 
 export default function Home() {
   let filters: tableFilter[] = CharacterFilters;
-  filters[0].onChange = (val: string) => setGender(val === gender ? "" : val || "");
-  filters[1].onChange = (val: string) => setStatus(val === status ? "" : val || "");
+  filters[0].onChange = (val: string) =>
+    setGender(val === gender ? "" : val || "");
+  filters[1].onChange = (val: string) =>
+    setStatus(val === status ? "" : val || "");
 
   const [page, setPage] = useState<number>(1);
   const [name, setName] = useState<string>("");
@@ -65,8 +72,12 @@ export default function Home() {
   }, [clickedRow]);
 
   useEffect(() => {
-    filters[0].chips.forEach(chip => chip.isSelected = gender === chip.value);
-    filters[1].chips.forEach(chip => chip.isSelected = status === chip.value);
+    filters[0].chips.forEach(
+      (chip) => (chip.isSelected = gender === chip.value)
+    );
+    filters[1].chips.forEach(
+      (chip) => (chip.isSelected = status === chip.value)
+    );
   }, [gender, status]);
 
   useEffect(() => {
@@ -90,9 +101,21 @@ export default function Home() {
     <main className="flex flex-col max-sm:p-0 h-full items-center justify-between p-6">
       <div className="flex place-items-center">
         <main className="flex flex-col">
+          <h1 className="mb-4 text-2xl max-sm:pt-4 max-sm:px-2 font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-4xl">
+            The{" "}
+            <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+              Ultimate Guide
+            </span>{" "}
+            to Dimension-Hopping Adventures!
+          </h1>
+          <p className="text-lg lg:pb-2 font-normal max-sm:hidden text-black-500 lg:text-xl dark:text-gray-400">
+            Enter the wild universe of Rick and Morty, where eccentricity,
+            interdimensional travel, and hilarious chaos collide.{" "}
+          </p>
+
           <Table
             width={90}
-            height={70}
+            height={55}
             imageSize={{ width: 50, height: 50 }}
             columns={CharacterColumns}
             rows={rows}
@@ -112,7 +135,9 @@ export default function Home() {
       {error ? (
         ""
       ) : (
-        <Pagination count={pages} page={page} onChange={onPageChange} />
+        <footer className="max-sm:pt-16 pt-4">
+          <Pagination count={pages} page={page} onChange={onPageChange} />
+        </footer>
       )}
     </main>
   );

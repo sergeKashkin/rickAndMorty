@@ -19,13 +19,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className + " min-h-screen"}>
         <header>
-          <div className="z-10 w-full bg-white items-center justify-between font-mono text-sm">
-            <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-              <TopBar title="Rick & Morty"></TopBar>
+          <div className="z-10 w-full flex flex-col bg-white items-center justify-between font-mono text-sm">
+            <div className="fixed max-sm:bottom-0 z-50 left-0 flex h-24 w-full items-end justify-center bg-gradient-to-t from-white lg:bg-white via-white dark:from-black dark:via-black lg:fixed lg:top-0 lg:h-auto lg:w-full">
+              <TopBar title="The Infoverse!" links={[{path: "/", title: "Home"}, {path: "charts", title: "Charts"}]}></TopBar>
             </div>
           </div>
         </header>
-        <main>
+        <main className="h-full lg:mt-20 flex flex-col">
           { children }
         </main>
       </body>

@@ -33,6 +33,16 @@ export interface episode {
     created: string; //	Time at which the episode was created in the database.  
 }
 
+export interface location {
+    id: number;
+    name: string;
+    type: string;
+    dimension: string;
+    residents: string[];
+    url: string;
+    created: string;
+}
+
 interface namedUrl {
     name: string;
     url: string;

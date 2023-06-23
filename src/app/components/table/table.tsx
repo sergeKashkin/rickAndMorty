@@ -74,7 +74,7 @@ const TableComponent = (props: {
 
   return props.isLoading ? (
     <div style={{ width: `${props.width}vw`, height: `${props.height}vh` }}>
-      {[...Array(10)].map((_, index: number) => (
+      {[...Array(7)].map((_, index: number) => (
         <Skeleton key={index} variant="rectangular" sx={{ my: 5, mx: 1 }} />
       ))}
     </div>
@@ -137,7 +137,11 @@ const TableComponent = (props: {
               <TableRow>
                 {props.columns.map((column, index) =>
                   !index ? (
-                    <TableCell key={column + index}>{column}</TableCell>
+                    <TableCell key={column + index} sx={{
+                      position: "sticky",
+                      left: 0,
+                      background: "white",
+                    }}>{column}</TableCell>
                   ) : (
                     <TableCell key={column + index} align="right">
                       {column}
