@@ -62,17 +62,13 @@ export default function Home() {
 
   useEffect(() => {
 
-    if (error) {
-      console.error("ERRRRORRR");
-    }
-
     if (data?.info?.pages && pages !== data?.info?.pages) {
       setPages(data?.info.pages);
     }
     if (data?.results) {
       setRows(data.results.map((character) => Parse.characterToRow(character)));
     }
-  }, [data, error]);
+  }, [data]);
 
   const onPageChange = (_: any, index: number) => {
     setPage(index);
@@ -85,9 +81,6 @@ export default function Home() {
   return (
     <main className="flex flex-col h-full items-center justify-between p-6">
       <div className="flex place-items-center">
-        {error ? (
-          "Error"
-        ) : (
           <main className="flex flex-col">
             <Table
               width={80}
@@ -98,12 +91,12 @@ export default function Home() {
               isLoading={isLoading}
               search={{label: "Name", value: name, onChange: (query: string) => setName(query)}}
               onRowClick={(row) => onRowClick(row)}
+              noData={Boolean(error)}
             />
           </main>
-        )}
       </div>
       <ModalComponent state={modalState}></ModalComponent>
-      <Pagination count={pages} page={page} onChange={onPageChange} />
+      {error ? "" : <Pagination count={pages} page={page} onChange={onPageChange} />}
     </main>
   );
 }
