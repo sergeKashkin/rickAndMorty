@@ -1,3 +1,4 @@
+import { ModalData } from "../components/modal/modal";
 import { row } from "../components/table/table";
 import { character } from "../entities";
 
@@ -12,4 +13,14 @@ export class Parse {
         { id: character.id, isImage: false, value: character.gender },
       ];
     };
+
+    public static characterToModalData = (character: character, onClose: Function): ModalData => {
+      return {
+        image: character.image,
+        isOpen: true,
+        onClose,
+        title: character.name,
+        subtitle: [`First time appeared ${character.episode[0]}`, `Last time appeared ${character.episode[character.episode.length - 1]}`]
+      }
+    }
 }
