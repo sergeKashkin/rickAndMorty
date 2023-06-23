@@ -7,15 +7,33 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Skeleton } from "@mui/material";
+import { Skeleton, ToggleButtonGroup, ToggleButton } from "@mui/material";
 import { getCell } from "./helper";
 import TextField from "@mui/material/TextField/TextField";
-
+import { styled } from "@mui/material/styles";
 export interface row {
   id: number;
   value: string;
   isImage: boolean;
 }
+
+interface chip {
+  value: string;
+  isSelected: boolean;
+}
+
+export interface tableFilter {
+  label: string;
+  chips: chip[];
+  onChange?: Function;
+}
+
+const Button = styled(ToggleButton)({
+  "&.Mui-selected, &.Mui-selected:hover": {
+    border: '1px solid #00ff0080',
+    backgroundColor: "transparent"
+  }
+});
 
 const TableComponent = (props: {
   rows: row[][];
@@ -31,6 +49,7 @@ const TableComponent = (props: {
   };
   noData: boolean;
   onRowClick: (row: row) => any;
+  filters?: tableFilter[];
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [debouncedInputValue, setDebouncedInputValue] = useState("");
@@ -57,20 +76,46 @@ const TableComponent = (props: {
       ))}
     </div>
   ) : (
-    <>
-      {props.search ? (
-        <TextField
-          id="outlined-controlled"
-          label={props.search.label}
-          value={inputValue}
-          autoFocus={true}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            handleInputChange(event);
-          }}
-        />
-      ) : (
-        ""
-      )}
+    <main className="max-sm:p-1">
+      <div className="bg-white max-sm lg:p-6 max-sm:space-y-2 lg:space-x-4 flex flex-col lg:flex-row">
+        {props.search && (
+          <TextField
+            id="outlined-controlled"
+            label={props.search.label}
+            value={inputValue}
+            autoFocus={true}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              handleInputChange(event);
+            }}
+          />
+        )}
+
+        {props.filters && (
+          <section className="flex flex-row justify-between content-between max-sm:space-x-2 lg:space-x-4 ">
+            {props.filters.map((filter) => {
+              return (
+                <ToggleButtonGroup
+                  onChange={(_: any, newAlignment: string) =>
+                    filter.onChange && filter.onChange(newAlignment)
+                  }
+                  exclusive
+                  key={filter.label}
+                  value={filter.chips.find((chip) => chip.isSelected)?.value}
+                  size="small"
+                  aria-label="outlined primary button group"
+                >
+                  {filter.chips.map((chip) => (
+                    <Button key={chip.value} value={chip.value} >
+                      {chip.value}
+                    </Button>
+                  ))}
+                </ToggleButtonGroup>
+              );
+            })}
+          </section>
+        )}
+      </div>
+
       {props.noData ? (
         <div
           className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
@@ -115,7 +160,7 @@ const TableComponent = (props: {
           </Table>
         </TableContainer>
       )}
-    </>
+    </main>
   );
 };
 

@@ -1,16 +1,20 @@
 "use client";
 
 import useSWR from "swr";
-import Table, { row } from "./components/table/table";
+import Table, { row, tableFilter } from "./components/table/table";
 import { useEffect, useState } from "react";
 import Pagination from "@mui/material/Pagination/Pagination";
-import { CharacterColumns, serverUrl } from "./constants";
+import { CharacterColumns, CharacterFilters, Strings, serverUrl } from "./constants";
 import fetcher from "./helpers/swr";
 import { baseResponse, character, episode } from "./entities";
 import { Parse } from "./helpers/parse";
 import ModalComponent, { ModalData } from "./components/modal/modal";
 
 export default function Home() {
+  let filters: tableFilter[] = CharacterFilters;
+  filters[0].onChange = (val: string) => setGender(val === gender ? "" : val || "");
+  filters[1].onChange = (val: string) => setStatus(val === status ? "" : val || "");
+
   const [page, setPage] = useState<number>(1);
   const [name, setName] = useState<string>("");
   const [gender, setGender] = useState<string>("");
@@ -61,7 +65,11 @@ export default function Home() {
   }, [clickedRow]);
 
   useEffect(() => {
+    filters[0].chips.forEach(chip => chip.isSelected = gender === chip.value);
+    filters[1].chips.forEach(chip => chip.isSelected = status === chip.value);
+  }, [gender, status]);
 
+  useEffect(() => {
     if (data?.info?.pages && pages !== data?.info?.pages) {
       setPages(data?.info.pages);
     }
@@ -79,24 +87,33 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col h-full items-center justify-between p-6">
+    <main className="flex flex-col max-sm:p-1 h-full items-center justify-between p-6">
       <div className="flex place-items-center">
-          <main className="flex flex-col">
-            <Table
-              width={80}
-              height={70}
-              imageSize={{ width: 50, height: 50 }}
-              columns={CharacterColumns}
-              rows={rows}
-              isLoading={isLoading}
-              search={{label: "Name", value: name, onChange: (query: string) => setName(query)}}
-              onRowClick={(row) => onRowClick(row)}
-              noData={Boolean(error)}
-            />
-          </main>
+        <main className="flex flex-col">
+          <Table
+            width={90}
+            height={70}
+            imageSize={{ width: 50, height: 50 }}
+            columns={CharacterColumns}
+            rows={rows}
+            isLoading={isLoading}
+            search={{
+              label: Strings.Name,
+              value: name,
+              onChange: (query: string) => setName(query),
+            }}
+            onRowClick={(row) => onRowClick(row)}
+            noData={Boolean(error)}
+            filters={filters}
+          />
+        </main>
       </div>
       <ModalComponent state={modalState}></ModalComponent>
-      {error ? "" : <Pagination count={pages} page={page} onChange={onPageChange} />}
+      {error ? (
+        ""
+      ) : (
+        <Pagination count={pages} page={page} onChange={onPageChange} />
+      )}
     </main>
   );
 }
