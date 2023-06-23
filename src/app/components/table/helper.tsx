@@ -10,6 +10,11 @@ export const getCell = (row: row, index: number, imageSize: { width: number; hei
           component="th"
           scope="row"
           onClick={() => onClick(row.id)}
+          sx={{
+            position: "sticky",
+            left: 0,
+            background: "white",
+          }}
         >
           {row.isImage ? (
             <Box

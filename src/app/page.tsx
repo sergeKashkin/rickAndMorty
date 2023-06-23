@@ -87,7 +87,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col max-sm:p-1 h-full items-center justify-between p-6">
+    <main className="flex flex-col max-sm:p-0 h-full items-center justify-between p-6">
       <div className="flex place-items-center">
         <main className="flex flex-col">
           <Table

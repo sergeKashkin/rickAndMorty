@@ -11,6 +11,7 @@ import { Skeleton, ToggleButtonGroup, ToggleButton } from "@mui/material";
 import { getCell } from "./helper";
 import TextField from "@mui/material/TextField/TextField";
 import { styled } from "@mui/material/styles";
+
 export interface row {
   id: number;
   value: string;
@@ -30,10 +31,12 @@ export interface tableFilter {
 
 const Button = styled(ToggleButton)({
   "&.Mui-selected, &.Mui-selected:hover": {
-    border: '1px solid #00ff0080',
-    backgroundColor: "transparent"
-  }
+    border: "1px solid #00ff0080",
+    backgroundColor: "transparent",
+  },
 });
+
+
 
 const TableComponent = (props: {
   rows: row[][];
@@ -76,12 +79,12 @@ const TableComponent = (props: {
       ))}
     </div>
   ) : (
-    <main className="max-sm:p-1">
-      <div className="bg-white max-sm lg:p-6 max-sm:space-y-2 lg:space-x-4 flex flex-col lg:flex-row">
+    <main className="max-sm:p-0">
+      <div className="bg-white  lg:p-6 max-sm:space-y-2 lg:space-x-4 flex flex-col lg:flex-row">
         {props.search && (
           <TextField
             id="outlined-controlled"
-            label={props.search.label}
+            placeholder={props.search.label}
             value={inputValue}
             autoFocus={true}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +108,7 @@ const TableComponent = (props: {
                   aria-label="outlined primary button group"
                 >
                   {filter.chips.map((chip) => (
-                    <Button key={chip.value} value={chip.value} >
+                    <Button key={chip.value} value={chip.value}>
                       {chip.value}
                     </Button>
                   ))}
@@ -126,7 +129,7 @@ const TableComponent = (props: {
         </div>
       ) : (
         <TableContainer
-          sx={{ width: `${props.width}vw`, maxHeight: `${props.height}vh` }}
+          sx = {{maxWidth: "100vw", maxHeight: `${props.height}vh`,  width: "100%"}}
           component={Paper}
         >
           <Table stickyHeader aria-label="simple table">
