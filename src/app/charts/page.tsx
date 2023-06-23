@@ -107,6 +107,7 @@ export default function Charts() {
               <Pagination
                 count={pages}
                 page={page}
+                color="primary"
                 onChange={(_: any, index: number) => setPage(index)}
               />
             </>
@@ -139,6 +140,7 @@ export default function Charts() {
               <Pagination
                 count={lpages}
                 page={lpage}
+                color="secondary"
                 onChange={(_: any, index: number) => setlpage(index)}
               />
             </>

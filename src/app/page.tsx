@@ -136,7 +136,7 @@ export default function Home() {
         ""
       ) : (
         <footer className="max-sm:pt-16 pt-4">
-          <Pagination count={pages} page={page} onChange={onPageChange} />
+          <Pagination count={pages} page={page} color="primary" onChange={onPageChange} />
         </footer>
       )}
     </main>
