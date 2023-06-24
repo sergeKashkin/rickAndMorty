@@ -124,7 +124,10 @@ export default function Home() {
             search={{
               label: Strings.Name,
               value: name,
-              onChange: (query: string) => setName(query),
+              onChange: (query: string) => {
+                setPage(1); 
+                setTimeout(() =>setName(query))
+              },
             }}
             onRowClick={(row) => onRowClick(row)}
             noData={Boolean(error)}
