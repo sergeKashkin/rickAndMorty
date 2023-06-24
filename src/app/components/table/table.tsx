@@ -167,7 +167,7 @@ const TableComponent = (props: {
           sx={{
             maxWidth: "100vw",
             maxHeight: `${props.height}vh`,
-            minWidth: `${props.width}vh`,
+            width: "100%",
           }}
           component={Paper}
         >

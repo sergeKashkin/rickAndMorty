@@ -101,7 +101,7 @@ export default function Home() {
     <main className="flex flex-col max-sm:p-0 h-full items-center justify-between p-6">
       <div className="flex place-items-center">
         <main className="flex flex-col">
-          <h1 className="mb-4 text-2xl max-sm:pt-4 max-sm:px-2 font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-4xl">
+          <h1 className="mb-4 w-full text-2xl max-sm:pt-4 max-sm:px-2 font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-4xl">
             The{" "}
             <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
               Ultimate Guide
