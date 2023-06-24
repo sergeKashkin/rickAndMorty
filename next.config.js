@@ -6,9 +6,6 @@ const nextConfig = {
     },
     experimental: {
         esmExternals: "loose"
-    },
-    future: {
-        webpack5: true
     }
 }
 

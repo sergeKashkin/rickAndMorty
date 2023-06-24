@@ -78,6 +78,7 @@ export default function Home() {
     filters[1].chips.forEach(
       (chip) => (chip.isSelected = status === chip.value)
     );
+    setPage(1);
   }, [gender, status]);
 
   useEffect(() => {
